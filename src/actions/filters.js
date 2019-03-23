@@ -1,22 +1,24 @@
+import actionTypes from './actionTypes';
+
 export const setTextFilter = (text = '') => ({
-  type: 'SET_TEXT_FILTER',
+  type: actionTypes.setTextFilter,
   text
 });
 
 export const sortByDate = () => ({
-  type: 'SORT_BY_DATE'
+  type: actionTypes.sortByDate
 });
 
 export const sortByAmount = () => ({
-  type: 'SORT_BY_AMOUNT'
+  type: actionTypes.sortByAmount
 });
 
 export const setStartDate = startDate => ({
-  type: 'SET_START_DATE',
+  type: actionTypes.setStartDate,
   startDate
 });
 
 export const setEndtDate = endDate => ({
-  type: 'SET_END_DATE',
+  type: actionTypes.setEndDate,
   endDate
 });
