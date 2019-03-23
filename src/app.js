@@ -1,7 +1,16 @@
+import 'normalize.css/normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css/normalize.css';
-import './styles/styles.scss';
+import { Provider } from 'react-redux';
 import AppRouter from './routes/AppRouter';
+import configureStore from './store/configureStore';
+import './styles/styles.scss';
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
+  document.getElementById('app')
+);

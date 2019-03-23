@@ -20,5 +20,5 @@ export const removeExpense = ({ id } = {}) => ({
 export const editExpense = (id, updates) => ({
   type: actionTypes.editExpense,
   id,
-  udpates
+  updates
 });
