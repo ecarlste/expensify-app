@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import { connect } from 'react-redux';
 
 export class ExpenseForm extends Component {
   state = {
-    description: '',
-    note: '',
-    amount: '',
-    createdAt: moment(),
+    description: this.props.expense ? this.props.expense.description : '',
+    note: this.props.expense ? this.props.expense.note : '',
+    amount: this.props.expense ? (this.props.expense.amount / 100).toString() : '',
+    createdAt: this.props.expense ? moment(this.props.expense.createdAt) : moment(),
     calendarFocused: false,
     error: ''
   };
@@ -98,11 +97,4 @@ export class ExpenseForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(ExpenseForm);
+export default ExpenseForm;
