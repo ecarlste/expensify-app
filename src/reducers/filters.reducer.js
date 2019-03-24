@@ -1,7 +1,7 @@
 import moment from 'moment';
 import actionTypes from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
   text: '',
   sortBy: 'date',
   startDate: moment().startOf('month'),
