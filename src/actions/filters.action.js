@@ -18,7 +18,7 @@ export const setStartDate = startDate => ({
   startDate
 });
 
-export const setEndtDate = endDate => ({
+export const setEndDate = endDate => ({
   type: actionTypes.setEndDate,
   endDate
 });
