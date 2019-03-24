@@ -8,8 +8,6 @@ import {
   sortByAmount,
   sortByDate
 } from '../actions/filters.action';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
 
 class ExpenseListFilters extends React.Component {
   state = {

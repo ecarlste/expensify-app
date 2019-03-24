@@ -6,6 +6,8 @@ import { addExpense } from './actions/expenses.action';
 import AppRouter from './routes/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 
 const store = configureStore();
 
