@@ -1,33 +1,6 @@
-import selectExpenses from './expenses.selector';
 import moment from 'moment';
-
-const expenseCreditCard = {
-  id: '1',
-  description: 'Credit Card',
-  note: '',
-  amount: 4500,
-  createdAt: moment(0)
-    .add(4, 'days')
-    .valueOf()
-};
-const expenseGum = {
-  id: '2',
-  description: 'Gum',
-  note: '',
-  amount: 195,
-  createdAt: 0
-};
-const expenseRent = {
-  id: '3',
-  description: 'Rent',
-  note: '',
-  amount: 109500,
-  createdAt: moment(0)
-    .subtract(4, 'days')
-    .valueOf()
-};
-
-const expenses = [expenseCreditCard, expenseGum, expenseRent];
+import expenses, { expenseCreditCard, expenseGum, expenseRent } from '../fixtures/expenses.fixture';
+import selectExpenses from './expenses.selector';
 
 const buildFilters = ({
   text = '',
