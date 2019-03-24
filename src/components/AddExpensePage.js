@@ -5,7 +5,11 @@ const AddExpensePage = () => {
   return (
     <div>
       <h1>Add Expense</h1>
-      <ExpenseForm />
+      <ExpenseForm
+        onSubmit={expense => {
+          console.log(expense);
+        }}
+      />
     </div>
   );
 };
