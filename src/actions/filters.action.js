@@ -1,6 +1,10 @@
 import actionTypes from './actionTypes';
 
-export const setTextFilter = (text = '') => ({
+export const setTextFilterDefaultValues = {
+  text: ''
+};
+
+export const setTextFilter = (text = setTextFilterDefaultValues.text) => ({
   type: actionTypes.setTextFilter,
   text
 });
