@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { SingleDatePicker } from 'react-dates';
 
 export class ExpenseForm extends Component {
+  static defaultErrorMessage = 'Please provide description and amount.';
+
   state = {
     description: this.props.expense ? this.props.expense.description : '',
     note: this.props.expense ? this.props.expense.note : '',
@@ -45,7 +47,7 @@ export class ExpenseForm extends Component {
     event.preventDefault();
 
     if (!this.state.description || !this.state.amount) {
-      this.setState(() => ({ error: 'Please provide description and amount.' }));
+      this.setState(() => ({ error: ExpenseForm.defaultErrorMessage }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -63,6 +65,7 @@ export class ExpenseForm extends Component {
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.onSubmit}>
           <input
+            id="description"
             type="text"
             placeholder="Description"
             autoFocus
@@ -70,6 +73,7 @@ export class ExpenseForm extends Component {
             onChange={this.onDescriptionChange}
           />
           <input
+            id="amount"
             type="text"
             placeholder="Amount"
             value={this.state.amount}
@@ -84,6 +88,7 @@ export class ExpenseForm extends Component {
             isOutsideRange={() => false}
           />
           <textarea
+            id="note"
             placeholder="Add a note for your expense (optional)"
             value={this.state.note}
             onChange={this.onNoteChange}
