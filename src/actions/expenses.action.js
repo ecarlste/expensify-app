@@ -1,7 +1,19 @@
 import uuid from 'uuid';
 import actionTypes from './actionTypes';
 
-export const addExpense = ({ description = '', note = '', amount = 0, createdAt = 0 } = {}) => ({
+export const addExpenseDefaultValues = {
+  description: '',
+  note: '',
+  amount: 0,
+  createdAt: 0
+};
+
+export const addExpense = ({
+  description = addExpenseDefaultValues.description,
+  note = addExpenseDefaultValues.note,
+  amount = addExpenseDefaultValues.amount,
+  createdAt = addExpenseDefaultValues.createdAt
+} = {}) => ({
   type: actionTypes.addExpense,
   expense: {
     id: uuid(),
