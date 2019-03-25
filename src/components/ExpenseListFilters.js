@@ -9,7 +9,7 @@ import {
   sortByDate
 } from '../actions/filters.action';
 
-class ExpenseListFilters extends React.Component {
+export class ExpenseListFilters extends React.Component {
   state = {
     calendarFocused: null
   };
@@ -23,20 +23,19 @@ class ExpenseListFilters extends React.Component {
     this.setState(() => ({ calendarFocused }));
   };
 
+  onTextChange = event => {
+    this.props.setTextFilter(event.target.value);
+  };
+
+  onSortByChange = event => {
+    event.target.value === 'date' ? this.props.sortByDate() : this.props.sortByAmount();
+  };
+
   render() {
     return (
       <div>
-        <input
-          value={this.props.filters.text}
-          type="text"
-          onChange={e => this.props.setTextFilter(e.target.value)}
-        />
-        <select
-          value={this.props.filters.sortBy}
-          onChange={e =>
-            e.target.value === 'date' ? this.props.sortByDate() : this.props.sortByAmount()
-          }
-        >
+        <input value={this.props.filters.text} type="text" onChange={this.onTextChange} />
+        <select value={this.props.filters.sortBy} onChange={this.onSortByChange}>
           <option value="date">Date</option>
           <option value="amount">Amount</option>
         </select>
