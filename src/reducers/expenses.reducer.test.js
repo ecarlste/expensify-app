@@ -69,3 +69,12 @@ test('should not edit expense if expense id not found', () => {
 
   expect(state).toEqual(startingState);
 });
+
+test('should set expenses', () => {
+  const startingState = [];
+  const action = { type: actionTypes.setExpenses, expenses };
+
+  const state = expensesReducer(startingState, action);
+
+  expect(state).toEqual(expenses);
+});
