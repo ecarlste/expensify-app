@@ -1,6 +1,6 @@
 import moment from 'moment';
 import expenses, { expenseCreditCard, expenseGum, expenseRent } from '../fixtures/expenses.fixture';
-import selectExpenses from './expenses.selector';
+import { selectExpenses, getExpensesTotal } from './expenses.selector';
 
 const buildFilters = ({
   text = '',
@@ -52,4 +52,32 @@ test('should sort by amount', () => {
   const result = selectExpenses(expenses, filters);
 
   expect(result).toEqual([expenseRent, expenseCreditCard, expenseGum]);
+});
+
+describe('getExpensesTotal', () => {
+  test('should return 0 if no expenses', () => {
+    const expenses = [];
+
+    const total = getExpensesTotal(expenses);
+
+    expect(total).toBe(0);
+  });
+
+  test('should correctly add up a single expense', () => {
+    const expense = expenseRent;
+    const expenses = [expense];
+
+    const total = getExpensesTotal(expenses);
+
+    expect(total).toBe(expense.amount);
+  });
+
+  test('should correctly add up multiple expenses', () => {
+    const expenses = [expenseCreditCard, expenseRent];
+    const expectedTotal = expenseCreditCard.amount + expenseRent.amount;
+
+    const total = getExpensesTotal(expenses);
+
+    expect(total).toBe(expectedTotal);
+  });
 });

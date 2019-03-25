@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export default (expenses, { text, sortBy, startDate, endDate }) => {
+export const selectExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
   return expenses
     .filter(expense => {
       const createdAt = moment(expense.createdAt);
@@ -18,4 +18,14 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
         return a.amount < b.amount ? 1 : -1;
       }
     });
+};
+
+export const getExpensesTotal = expenses => {
+  return expenses
+    .map(expense => {
+      return expense.amount;
+    })
+    .reduce((total, amount) => {
+      return total + amount;
+    }, 0);
 };
