@@ -45,6 +45,16 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
+export const startRemoveExpense = id => {
+  return dispatch => {
+    return firestore
+      .collection('expenses')
+      .doc(id)
+      .delete()
+      .then(() => dispatch(removeExpense({ id })));
+  };
+};
+
 export const editExpense = (id, updates) => ({
   type: actionTypes.editExpense,
   id,

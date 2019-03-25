@@ -3,15 +3,15 @@ import React from 'react';
 import { expenseRent } from '../fixtures/expenses.fixture';
 import { EditExpensePage } from './EditExpensePage';
 
-let editExpense, removeExpense, history, wrapper;
+let editExpense, startRemoveExpense, history, wrapper;
 beforeEach(() => {
   editExpense = jest.fn();
-  removeExpense = jest.fn();
+  startRemoveExpense = jest.fn();
   history = { push: jest.fn() };
   wrapper = shallow(
     <EditExpensePage
       editExpense={editExpense}
-      removeExpense={removeExpense}
+      startRemoveExpense={startRemoveExpense}
       history={history}
       expense={expenseRent}
     />
@@ -33,5 +33,5 @@ test('should handle onClickRemove', () => {
   wrapper.find('button').simulate('click');
 
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(removeExpense).toHaveBeenLastCalledWith({ id: expenseRent.id });
+  expect(startRemoveExpense).toHaveBeenLastCalledWith({ id: expenseRent.id });
 });

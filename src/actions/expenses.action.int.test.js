@@ -3,7 +3,12 @@ import thunk from 'redux-thunk';
 import { firestore } from '../firebase/firebase';
 import expenses from '../fixtures/expenses.fixture';
 import actionTypes from './actionTypes';
-import { addExpenseDefaultValues, startAddExpense, startSetExpenses } from './expenses.action';
+import {
+  addExpenseDefaultValues,
+  startAddExpense,
+  startSetExpenses,
+  startRemoveExpense
+} from './expenses.action';
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -86,7 +91,7 @@ test('should add expense with defaults to database and store', () => {
 });
 
 test('should read expenses from database and set store correctly', () => {
-  const store = createMockStore();
+  const store = createMockStore({});
 
   return store.dispatch(startSetExpenses()).then(() => {
     const actions = store.getActions();
@@ -96,4 +101,28 @@ test('should read expenses from database and set store correctly', () => {
       expenses
     });
   });
+});
+
+test('should remove expenses from firebase', () => {
+  const store = createMockStore({ expenses });
+  const id = expenses[0].id;
+
+  return store
+    .dispatch(startRemoveExpense(id))
+    .then(() => {
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: actionTypes.removeExpense,
+        id
+      });
+
+      return firestore
+        .collection('expenses')
+        .doc(id)
+        .get();
+    })
+    .then(doc => {
+      expect(doc.exists).toBe(false);
+    });
 });
