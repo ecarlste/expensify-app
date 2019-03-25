@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { firestore } from '../firebase/firebase';
 import expenses from '../fixtures/expenses.fixture';
 import actionTypes from './actionTypes';
-import { addExpenseDefaultValues, startAddExpense } from './expenses.action';
+import { addExpenseDefaultValues, startAddExpense, startSetExpenses } from './expenses.action';
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -83,4 +83,17 @@ test('should add expense with defaults to database and store', () => {
     .then(doc => {
       expect(doc.data()).toEqual(addExpenseDefaultValues);
     });
+});
+
+test('should read expenses from database and set store correctly', () => {
+  const store = createMockStore();
+
+  return store.dispatch(startSetExpenses()).then(() => {
+    const actions = store.getActions();
+
+    expect(actions[0]).toEqual({
+      type: actionTypes.setExpenses,
+      expenses
+    });
+  });
 });

@@ -55,3 +55,14 @@ export const setExpenses = expenses => ({
   type: actionTypes.setExpenses,
   expenses
 });
+
+export const startSetExpenses = () => {
+  return dispatch => {
+    return firestore
+      .collection('expenses')
+      .get()
+      .then(snapshot => {
+        dispatch(setExpenses(snapshot.docs.map(doc => doc.data())));
+      });
+  };
+};
