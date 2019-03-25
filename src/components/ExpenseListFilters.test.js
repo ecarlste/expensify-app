@@ -38,3 +38,41 @@ test('should render ExpenseListFilters correct when filters are set', () => {
 
   expect(wrapper).toMatchSnapshot();
 });
+
+test('should handle text change', () => {
+  const value = 'filter text';
+
+  wrapper.find('input').simulate('change', {
+    target: {
+      value
+    }
+  });
+
+  expect(setTextFilter).toHaveBeenLastCalledWith(value);
+});
+
+test('should sort by date', () => {
+  const value = 'date';
+  const event = {
+    target: {
+      value
+    }
+  };
+
+  wrapper.find('select').simulate('change', event);
+
+  expect(sortByDate).toHaveBeenLastCalledWith();
+});
+
+test('should sort by amount', () => {
+  const value = 'amount';
+  const event = {
+    target: {
+      value
+    }
+  };
+
+  wrapper.find('select').simulate('change', event);
+
+  expect(sortByAmount).toHaveBeenLastCalledWith();
+});
