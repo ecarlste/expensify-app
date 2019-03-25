@@ -12,10 +12,4 @@ firebase.initializeApp(config);
 
 const firestore = firebase.firestore();
 
-const docRef = firestore.doc('users/ecarlste');
-
-docRef.set({
-  name: 'Erik',
-  age: 19,
-  isSingle: false
-});
+export { firebase as default, firestore };

@@ -3,11 +3,11 @@ import React from 'react';
 import { expenseRent } from '../fixtures/expenses.fixture';
 import { AddExpensePage } from './AddExpensePage';
 
-let addExpense, history, wrapper;
+let startAddExpense, history, wrapper;
 beforeEach(() => {
-  addExpense = jest.fn();
+  startAddExpense = jest.fn();
   history = { push: jest.fn() };
-  wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+  wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 });
 
 test('should render expense page', () => {
@@ -18,5 +18,5 @@ test('should handle onSubmit', () => {
   wrapper.find('ExpenseForm').prop('onSubmit')(expenseRent);
 
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(addExpense).toHaveBeenLastCalledWith(expenseRent);
+  expect(startAddExpense).toHaveBeenLastCalledWith(expenseRent);
 });

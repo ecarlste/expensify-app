@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { firestore } from '../firebase/firebase';
 import actionTypes from './actionTypes';
 
 export const addExpenseDefaultValues = {
@@ -8,21 +8,37 @@ export const addExpenseDefaultValues = {
   createdAt: 0
 };
 
-export const addExpense = ({
-  description = addExpenseDefaultValues.description,
-  note = addExpenseDefaultValues.note,
-  amount = addExpenseDefaultValues.amount,
-  createdAt = addExpenseDefaultValues.createdAt
-} = {}) => ({
-  type: actionTypes.addExpense,
-  expense: {
-    id: uuid(),
-    description,
-    note,
-    amount,
-    createdAt
-  }
-});
+export const addExpense = expense => {
+  return {
+    type: actionTypes.addExpense,
+    expense
+  };
+};
+
+export const startAddExpense = (expenseData = {}) => {
+  return dispatch => {
+    const {
+      description = addExpenseDefaultValues.description,
+      note = addExpenseDefaultValues.note,
+      amount = addExpenseDefaultValues.amount,
+      createdAt = addExpenseDefaultValues.createdAt
+    } = expenseData;
+
+    const expense = { description, note, amount, createdAt };
+
+    return firestore
+      .collection('expenses')
+      .add(expense)
+      .then(docRef => {
+        dispatch(
+          addExpense({
+            id: docRef.id,
+            ...expense
+          })
+        );
+      });
+  };
+};
 
 export const removeExpense = ({ id } = {}) => ({
   type: actionTypes.removeExpense,
