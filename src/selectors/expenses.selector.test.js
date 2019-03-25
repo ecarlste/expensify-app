@@ -1,6 +1,6 @@
 import moment from 'moment';
 import expenses, { expenseCreditCard, expenseGum, expenseRent } from '../fixtures/expenses.fixture';
-import { selectExpenses, getExpensesTotal } from './expenses.selector';
+import { selectExpenses, selectExpensesTotal } from './expenses.selector';
 
 const buildFilters = ({
   text = '',
@@ -58,7 +58,7 @@ describe('getExpensesTotal', () => {
   test('should return 0 if no expenses', () => {
     const expenses = [];
 
-    const total = getExpensesTotal(expenses);
+    const total = selectExpensesTotal(expenses);
 
     expect(total).toBe(0);
   });
@@ -67,7 +67,7 @@ describe('getExpensesTotal', () => {
     const expense = expenseRent;
     const expenses = [expense];
 
-    const total = getExpensesTotal(expenses);
+    const total = selectExpensesTotal(expenses);
 
     expect(total).toBe(expense.amount);
   });
@@ -76,7 +76,7 @@ describe('getExpensesTotal', () => {
     const expenses = [expenseCreditCard, expenseRent];
     const expectedTotal = expenseCreditCard.amount + expenseRent.amount;
 
-    const total = getExpensesTotal(expenses);
+    const total = selectExpensesTotal(expenses);
 
     expect(total).toBe(expectedTotal);
   });

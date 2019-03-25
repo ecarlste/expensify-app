@@ -20,7 +20,7 @@ export const selectExpenses = (expenses, { text, sortBy, startDate, endDate }) =
     });
 };
 
-export const getExpensesTotal = expenses => {
+export const selectExpensesTotal = expenses => {
   return expenses
     .map(expense => {
       return expense.amount;
