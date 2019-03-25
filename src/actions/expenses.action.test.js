@@ -1,6 +1,6 @@
-import { expenseGum } from '../fixtures/expenses.fixture';
+import expenses, { expenseGum } from '../fixtures/expenses.fixture';
 import actionTypes from './actionTypes';
-import { addExpense, editExpense, removeExpense } from './expenses.action';
+import { addExpense, editExpense, removeExpense, setExpenses } from './expenses.action';
 
 test('Should setup remove expense action object', () => {
   const action = removeExpense({ id: '123abc' });
@@ -30,5 +30,14 @@ test('Should setup add expense action object with provided values', () => {
   expect(action).toEqual({
     type: actionTypes.addExpense,
     expense: expense
+  });
+});
+
+test('should setup set expense action object with data', () => {
+  const action = setExpenses(expenses);
+
+  expect(action).toEqual({
+    type: actionTypes.setExpenses,
+    expenses
   });
 });
