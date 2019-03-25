@@ -8,8 +8,11 @@ import './firebase/firebase';
 import AppRouter from './routes/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
+import { startSetExpenses } from './actions/expenses.action';
 
 const store = configureStore();
+
+store.dispatch(startSetExpenses());
 
 const App = () => (
   <Provider store={store}>

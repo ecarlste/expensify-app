@@ -62,7 +62,7 @@ export const startSetExpenses = () => {
       .collection('expenses')
       .get()
       .then(snapshot => {
-        dispatch(setExpenses(snapshot.docs.map(doc => doc.data())));
+        dispatch(setExpenses(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))));
       });
   };
 };
