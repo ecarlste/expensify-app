@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicAssetPath = path.join(__dirname, 'public');
@@ -15,6 +16,9 @@ module.exports = env => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'styles.css'
+      }),
+      new Dotenv({
+        path: './config/dev.env'
       })
     ],
     module: {
