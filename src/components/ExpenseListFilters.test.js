@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import moment from 'moment';
 import { ExpenseListFilters } from './ExpenseListFilters';
 import {
   filtersSortByDate,
@@ -75,4 +76,30 @@ test('should sort by amount', () => {
   wrapper.find('select').simulate('change', event);
 
   expect(sortByAmount).toHaveBeenLastCalledWith();
+});
+
+test('should handle date changes', () => {
+  const startDate = moment(0).add(1, 'years');
+  const endDate = moment(0).add(2, 'years');
+
+  wrapper
+    .findWhere(n => {
+      return n.name() && n.name().includes('DateRangePicker');
+    })
+    .prop('onDatesChange')({ startDate, endDate });
+
+  expect(setStartDate).toHaveBeenLastCalledWith(startDate);
+  expect(setEndDate).toHaveBeenLastCalledWith(endDate);
+});
+
+test('should handle date focus changes', () => {
+  const newFocusedState = 'startDate';
+
+  wrapper
+    .findWhere(n => {
+      return n.name() && n.name().includes('DateRangePicker');
+    })
+    .prop('onFocusChange')(newFocusedState);
+
+  expect(wrapper.state('calendarFocused')).toBe(newFocusedState);
 });
