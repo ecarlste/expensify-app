@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { SingleDatePicker } from 'react-dates';
 
-export class ExpenseForm extends Component {
+class ExpenseForm extends Component {
   static defaultErrorMessage = 'Please provide description and amount.';
 
   state = {
