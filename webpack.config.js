@@ -1,8 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicAssetPath = path.join(__dirname, 'public');
+
+console.log(process.env);
 
 module.exports = env => {
   const isProduction = env === 'production';
@@ -19,7 +22,13 @@ module.exports = env => {
       }),
       new Dotenv({
         path: './config/dev.env'
-      })
+      }),
+      new webpack.EnvironmentPlugin([
+        'FIREBASE_API_KEY',
+        'FIREBASE_AUTH_DOMAIN',
+        'FIREBASE_DB_URL',
+        'FIREBASE_PROJECT_ID'
+      ])
     ],
     module: {
       rules: [
