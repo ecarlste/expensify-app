@@ -1,35 +1,49 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicAssetPath = path.join(__dirname, 'public');
 
-module.exports = {
-  entry: './src/app.js',
-  output: {
-    path: publicAssetPath,
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-react'],
-            plugins: ['@babel/plugin-proposal-class-properties']
+module.exports = env => {
+  const isProduction = env === 'production';
+
+  return {
+    entry: './src/app.js',
+    output: {
+      path: publicAssetPath,
+      filename: 'bundle.js'
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'styles.css'
+      })
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-react'],
+              plugins: ['@babel/plugin-proposal-class-properties']
+            }
           }
+        },
+        {
+          test: /\.s?css$/,
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'sass-loader', options: { sourceMap: true } }
+          ]
         }
-      },
-      {
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
-      }
-    ]
-  },
-  devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    contentBase: publicAssetPath,
-    historyApiFallback: true
-  }
+      ]
+    },
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devServer: {
+      contentBase: publicAssetPath,
+      historyApiFallback: true
+    }
+  };
 };
