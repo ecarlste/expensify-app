@@ -61,6 +61,16 @@ export const editExpense = (id, updates) => ({
   updates
 });
 
+export const startEditExpense = (id, updates) => {
+  return dispatch => {
+    return firestore
+      .collection('expenses')
+      .doc(id)
+      .update(updates)
+      .then(() => dispatch(editExpense(id, updates)));
+  };
+};
+
 export const setExpenses = expenses => ({
   type: actionTypes.setExpenses,
   expenses

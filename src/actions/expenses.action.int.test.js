@@ -1,13 +1,14 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { firestore } from '../firebase/firebase';
-import expenses from '../fixtures/expenses.fixture';
+import expenses, { expenseRent } from '../fixtures/expenses.fixture';
 import actionTypes from './actionTypes';
 import {
   addExpenseDefaultValues,
   startAddExpense,
   startSetExpenses,
-  startRemoveExpense
+  startRemoveExpense,
+  startEditExpense
 } from './expenses.action';
 
 const createMockStore = configureMockStore([thunk]);
@@ -124,5 +125,32 @@ test('should remove expenses from firebase', () => {
     })
     .then(doc => {
       expect(doc.exists).toBe(false);
+    });
+});
+
+test('should edit expenses from firebase', () => {
+  const store = createMockStore({ expenses: [expenseRent] });
+  const id = expenseRent.id;
+  const amount = expenseRent.amount + 10000;
+  const updates = { amount };
+
+  return store
+    .dispatch(startEditExpense(id, updates))
+    .then(() => {
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: actionTypes.editExpense,
+        id,
+        updates
+      });
+
+      return firestore
+        .collection('expenses')
+        .doc(id)
+        .get();
+    })
+    .then(doc => {
+      expect(doc.data().amount).toEqual(amount);
     });
 });
