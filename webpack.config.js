@@ -5,8 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicAssetPath = path.join(__dirname, 'public');
 
-console.log(process.env);
-
 module.exports = env => {
   const isProduction = env === 'production';
 
