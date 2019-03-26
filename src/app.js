@@ -9,6 +9,7 @@ import AppRouter, { history } from './routes/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
 import { startSetExpenses } from './actions/expenses.action';
+import { login, logout } from './actions/auth.action';
 
 const store = configureStore();
 
@@ -28,16 +29,16 @@ ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
+    store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {
       if (history.location.pathname === '/') {
         history.push('/dashboard');
       }
       renderApp();
-      console.log('logged in');
     });
   } else {
+    store.dispatch(logout());
     renderApp();
     history.push('/');
-    console.log('logged out');
   }
 });

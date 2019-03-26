@@ -1,27 +1,15 @@
 import firebase, { googleAuthProvider } from '../firebase/firebase';
 import actionTypes from './actionTypes';
 
-export const login = user => ({
+export const login = uid => ({
   type: actionTypes.login,
-  user
+  uid
 });
 
-export const startLogin = user => dispatch => {
-  return firebase
-    .auth()
-    .signInWithPopup(googleAuthProvider)
-    .then(something => {
-      console.log(something);
-      dispatch(login(user));
-    });
-};
+export const startLogin = () => () => firebase.auth().signInWithPopup(googleAuthProvider);
 
 export const logout = () => ({
   type: actionTypes.logout
 });
 
-export const startLogout = () => dispatch =>
-  firebase
-    .auth()
-    .signOut()
-    .then(() => dispatch(logout));
+export const startLogout = () => () => firebase.auth().signOut();
