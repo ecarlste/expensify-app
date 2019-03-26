@@ -4,7 +4,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import './firebase/firebase';
+import firebase from './firebase/firebase';
 import AppRouter from './routes/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
@@ -21,3 +21,11 @@ const App = () => (
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    console.log('logged in');
+  } else {
+    console.log('logged out');
+  }
+});

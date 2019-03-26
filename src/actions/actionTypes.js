@@ -8,7 +8,10 @@ const actionTypes = {
   addExpense: 'ADD_EXPENSE',
   removeExpense: 'REMOVE_EXPENSE',
   editExpense: 'EDIT_EXPENSE',
-  setExpenses: 'SET_EXPENSES'
+  setExpenses: 'SET_EXPENSES',
+
+  login: 'LOGIN',
+  logout: 'LOGOUT'
 };
 
 export default actionTypes;
