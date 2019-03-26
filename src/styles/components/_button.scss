@@ -4,7 +4,7 @@
   border-radius: 3px;
   color: white;
   display: inline-block;
-  font-size: $s-font-size;
+  font-size: $l-font-size;
   font-weight: 300;
   line-height: 1;
   padding: $s-size;
@@ -13,4 +13,8 @@
 
 .button--link {
   background: transparent;
+}
+
+.button--secondary {
+  background: #888888;
 }
