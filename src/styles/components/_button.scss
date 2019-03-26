@@ -3,7 +3,14 @@
   border: none;
   border-radius: 3px;
   color: white;
+  display: inline-block;
   font-size: $s-font-size;
   font-weight: 300;
+  line-height: 1;
   padding: $s-size;
+  text-decoration: none;
+}
+
+.button--link {
+  background: transparent;
 }
