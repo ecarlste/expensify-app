@@ -16,7 +16,9 @@ export const addExpense = expense => {
 };
 
 export const startAddExpense = (expenseData = {}) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     const {
       description = addExpenseDefaultValues.description,
       note = addExpenseDefaultValues.note,
@@ -27,7 +29,7 @@ export const startAddExpense = (expenseData = {}) => {
     const expense = { description, note, amount, createdAt };
 
     return firestore
-      .collection('expenses')
+      .collection(`users/${uid}/expenses`)
       .add(expense)
       .then(docRef => {
         dispatch(
@@ -46,9 +48,11 @@ export const removeExpense = ({ id } = {}) => ({
 });
 
 export const startRemoveExpense = id => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     return firestore
-      .collection('expenses')
+      .collection(`users/${uid}/expenses`)
       .doc(id)
       .delete()
       .then(() => dispatch(removeExpense({ id })));
@@ -62,9 +66,11 @@ export const editExpense = (id, updates) => ({
 });
 
 export const startEditExpense = (id, updates) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     return firestore
-      .collection('expenses')
+      .collection(`users/${uid}/expenses`)
       .doc(id)
       .update(updates)
       .then(() => dispatch(editExpense(id, updates)));
@@ -77,9 +83,11 @@ export const setExpenses = expenses => ({
 });
 
 export const startSetExpenses = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     return firestore
-      .collection('expenses')
+      .collection(`users/${uid}/expenses`)
       .get()
       .then(snapshot => {
         dispatch(setExpenses(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))));
