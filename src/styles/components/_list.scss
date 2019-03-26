@@ -6,3 +6,65 @@
   justify-content: space-between;
   padding: $s-size $m-size;
 }
+
+.list-body {
+  margin-bottom: $m-size;
+}
+
+.list-item {
+  border: 1px solid darken($off-white, 7%);
+  border-top: none;
+  color: $dark-grey;
+  display: flex;
+  flex-direction: column;
+  padding: $s-size;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.list-item:hover {
+  background: $off-white;
+}
+
+.list-item__title {
+  margin: 0;
+  word-break: break-all;
+}
+
+.list-item__subtitle {
+  color: $grey;
+  font-size: $s-font-size;
+}
+
+.list-item__content {
+  margin: $s-size 0 0 0;
+}
+
+.list-item--message {
+  align-items: center;
+  color: $grey;
+  justify-content: center;
+  padding: $m-size;
+}
+
+.list-item--message:hover {
+  background: none;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .list-body {
+    margin-bottom: $l-size;
+  }
+
+  .list-item {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $m-size;
+  }
+
+  .list-item__content {
+    margin: 0;
+    padding-left: $s-size;
+  }
+}
